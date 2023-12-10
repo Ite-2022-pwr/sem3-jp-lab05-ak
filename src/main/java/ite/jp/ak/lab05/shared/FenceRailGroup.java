@@ -3,7 +3,6 @@ package ite.jp.ak.lab05.shared;
 import ite.jp.ak.lab05.enums.FenceRailStatus;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 

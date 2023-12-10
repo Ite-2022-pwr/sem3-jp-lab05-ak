@@ -46,6 +46,11 @@ public class PaintTank {
             }
         }
         this.paintAmount -= amount;
+        try {
+            Thread.sleep((long)(Math.random() * 1000));
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         this.painter = ".";
 
         return amount;

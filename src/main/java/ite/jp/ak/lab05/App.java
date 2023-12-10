@@ -5,8 +5,10 @@ import ite.jp.ak.lab05.shared.PaintTank;
 import ite.jp.ak.lab05.threads.PaintSupplierThread;
 import ite.jp.ak.lab05.threads.PainterThread;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Hello world!
@@ -21,16 +23,20 @@ public class App
         PaintSupplierThread paintSupplierThread = new PaintSupplierThread("P", 2137);
         paintSupplierThread.start();
         List<PainterThread> painterThreadList = new ArrayList<>();
-        for (int i = 0; i < 3; i++) {
-            PainterThread painterThread = new PainterThread("" + (char)(i + (int)'a'), (long)(Math.random() * 100), 3);
+        for (int i = 0; i < 10; i++) {
+            PainterThread painterThread = new PainterThread("" + (char)(i + (int)'a'), (long)(Math.random() * 1000), 3);
             painterThreadList.add(painterThread);
             painterThread.start();
         }
 
         while (true) {
             try {
-                Thread.sleep(1000);
+                Thread.sleep(500);
+                String paintersNames = painterThreadList.stream().map(PainterThread::getThreadName).collect(Collectors.joining(" "));
+                String paintersPaintBucketLevels = painterThreadList.stream().map(painterThread -> "" + painterThread.getPaintBucketLevel()).collect(Collectors.joining(" "));
                 System.out.println(paintTank);
+                System.out.println(paintersNames);
+                System.out.println(paintersPaintBucketLevels);
                 System.out.println(fence);
                 if (painterThreadList.stream().allMatch(PainterThread::isFinished)) {
                     paintSupplierThread.setFinished(true);

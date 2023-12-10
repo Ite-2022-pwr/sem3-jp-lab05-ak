@@ -5,14 +5,20 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public abstract class ThreadBase extends Thread {
-    private String threadName;
-    private int delay;
+public class ThreadBase extends Thread {
+    private final String threadName;
+    private final long delay;
     private boolean finished;
 
-    public ThreadBase(String name, int delay) {
+    public ThreadBase(String name, long delay) {
+        super(name);
         this.threadName = name;
         this.delay = delay;
         this.finished = false;
+    }
+
+    @Override
+    public String toString() {
+        return this.threadName;
     }
 }

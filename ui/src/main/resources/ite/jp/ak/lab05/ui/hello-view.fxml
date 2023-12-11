@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ite.jp.ak.lab05.ui.HelloController">
+   <children>
+      <TextField fx:id="paintersCount" layoutX="30.0" layoutY="77.0" prefHeight="24.0" prefWidth="98.0" />
+      <Label layoutX="30.0" layoutY="56.0" text="Liczba malarzy">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="30.0" layoutY="126.0" text="Pojemność farby w wiaderku malarza">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <TextField fx:id="paintersBucketCapacity" layoutX="30.0" layoutY="147.0" prefHeight="24.0" prefWidth="98.0" />
+      <Label layoutX="30.0" layoutY="188.0" text="Pojemność zbiornika z farbą">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <TextField fx:id="paintTankCapacity" layoutX="30.0" layoutY="209.0" prefHeight="24.0" prefWidth="98.0" />
+      <Label layoutX="30.0" layoutY="257.0" text="Liczba segmentów płotu">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <TextField fx:id="fenceRailsGroupsCount" layoutX="30.0" layoutY="278.0" prefHeight="24.0" prefWidth="98.0" />
+      <Label layoutX="30.0" layoutY="328.0" text="Liczba sztachet w segmencie">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <TextField fx:id="fenceRailsGroupSize" layoutX="30.0" layoutY="349.0" prefHeight="24.0" prefWidth="98.0" />
+      <TableView fx:id="paintersTableView" layoutX="30.0" layoutY="519.0" prefHeight="200.0" prefWidth="310.0">
+        <columns>
+          <TableColumn fx:id="painterNameTableColumn" prefWidth="75.0" text="malarz" />
+          <TableColumn fx:id="painterBucketLevelTableColumn" prefWidth="124.0" text="stan wiaderka" />
+            <TableColumn fx:id="painterStateTableColumn" prefWidth="116.0" text="czy skończył" />
+        </columns>
+      </TableView>
+      <Button fx:id="startButton" layoutX="30.0" layoutY="388.0" mnemonicParsing="false" onAction="#onStartButtonClicked" text="Start" />
+      <Label fx:id="paintTankLevel" layoutX="35.0" layoutY="471.0" text="Stan zbiornika z farbą: ">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Separator layoutX="28.0" layoutY="448.0" prefHeight="0.0" prefWidth="390.0" />
+      <Separator layoutX="421.0" layoutY="26.0" orientation="VERTICAL" prefHeight="756.0" prefWidth="0.0" />
+      <Label layoutX="473.0" layoutY="26.0" text="Płot">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <ScrollPane layoutX="448.0" layoutY="78.0" prefHeight="681.0" prefWidth="716.0">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <ListView fx:id="fenceListView" layoutX="14.0" layoutY="14.0" prefHeight="656.0" prefWidth="694.0" />
+               </children>
+            </AnchorPane>
+        </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>

@@ -26,6 +26,9 @@ public class FenceRail {
     }
 
     public synchronized void paint(String painter) {
+        if (this.status == FenceRailStatus.Painted) {
+            return;
+        }
         this.paintedBy = painter;
         this.status = FenceRailStatus.Painted;
     }

@@ -70,7 +70,11 @@ public class HelloController {
             paintTank.setCapacity(paintTankCapacity);
             fence.initializeFence(fenceRailsGroupsCount, fenceRailsGroupSize);
 
+            refresh();
+
             paintSupplierThread.start();
+
+            refresh();
 
             for (int i = 0; i < paintersCount; i++) {
                 PainterThread painterThread = new PainterThread("" + (char)(i + (int)'a'), (long)(Math.random() * 1000), paintersBucketCapacity);
@@ -78,9 +82,11 @@ public class HelloController {
                 painterThread.start();
             }
 
+            refresh();
+
             while (true) {
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(5000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

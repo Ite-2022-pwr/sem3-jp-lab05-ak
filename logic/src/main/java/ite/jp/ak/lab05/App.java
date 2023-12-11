@@ -5,6 +5,8 @@ import ite.jp.ak.lab05.shared.PaintTank;
 import ite.jp.ak.lab05.threads.PaintSupplierThread;
 import ite.jp.ak.lab05.threads.PainterThread;
 
+import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -46,15 +48,36 @@ public class App
             painterThread.start();
         }
 
+        JPanel panel = new JPanel();
+        DefaultListModel<String> model = new DefaultListModel<>();
+        JList<String> list = new JList<>(model);
+        panel.add(list);
+        list.setFont(new Font("Courier New", Font.PLAIN, 24));
+        JFrame frame = new JFrame("Fence Painting Simulation");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(1000, 300);
+        frame.getContentPane().add(panel);
+        frame.setVisible(true);
+
         while (true) {
             try {
-                Thread.sleep(500);
+                Thread.sleep(100);
+                String paintTankStr = paintTank.toString();
+                String fenceStr = fence.toString();
                 String paintersNames = painterThreadList.stream().map(PainterThread::getThreadName).collect(Collectors.joining(" "));
                 String paintersPaintBucketLevels = painterThreadList.stream().map(painterThread -> "" + painterThread.getPaintBucketLevel()).collect(Collectors.joining(" "));
-                System.out.println(paintTank);
-                System.out.println(paintersNames);
-                System.out.println(paintersPaintBucketLevels);
-                System.out.println(fence);
+//                System.out.println(paintTank);
+//                System.out.println(paintersNames);
+//                System.out.println(paintersPaintBucketLevels);
+//                System.out.println(fence);
+
+                model.clear();
+                model.addElement("Paint tank: " + paintTankStr);
+                model.addElement(paintersNames);
+                model.addElement(paintersPaintBucketLevels);
+                model.addElement(fenceStr);
+
+
                 if (painterThreadList.stream().allMatch(PainterThread::isFinished)) {
                     paintSupplierThread.setFinished(true);
                     break;

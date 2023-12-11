@@ -5,9 +5,9 @@ import ite.jp.ak.lab05.shared.PaintTank;
 import ite.jp.ak.lab05.threads.PaintSupplierThread;
 import ite.jp.ak.lab05.threads.PainterThread;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 import java.util.stream.Collectors;
 
 /**
@@ -17,14 +17,31 @@ import java.util.stream.Collectors;
 public class App 
 {
     public static void main( String[] args ) {
-        PaintTank paintTank = PaintTank.getInstance(10);
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Podaj ilość malarzy (nie więcej niż 25): ");
+        int painterCount = Math.abs(scanner.nextInt()) % 26;
+
+        System.out.print("Podaj pojemność wiaderka z farbą pojedynczego malarza: ");
+        int paintBucketCapacity = Math.abs(scanner.nextInt());
+
+        System.out.print("Podaj pojemność zbiornika z farbą: ");
+        int paintTankCapacity = Math.abs(scanner.nextInt());
+
+        System.out.print("Podaj ilość segmentów płotu: ");
+        int fenceRailGroupCount = Math.abs(scanner.nextInt());
+
+        System.out.print("Podaj ilość segmentów w segmencie: ");
+        int fenceRailCount = Math.abs(scanner.nextInt());
+
+        PaintTank paintTank = PaintTank.getInstance(paintTankCapacity);
         Fence fence = Fence.getInstance();
-        fence.initializeFence(5, 10);
-        PaintSupplierThread paintSupplierThread = new PaintSupplierThread("P", 2137);
+        fence.initializeFence(fenceRailGroupCount, fenceRailCount);
+        PaintSupplierThread paintSupplierThread = new PaintSupplierThread("P", (long)(Math.random() * 1000));
         paintSupplierThread.start();
         List<PainterThread> painterThreadList = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            PainterThread painterThread = new PainterThread("" + (char)(i + (int)'a'), (long)(Math.random() * 1000), 3);
+        for (int i = 0; i < painterCount; i++) {
+            PainterThread painterThread = new PainterThread("" + (char)(i + (int)'a'), (long)(Math.random() * 1000), paintBucketCapacity);
             painterThreadList.add(painterThread);
             painterThread.start();
         }

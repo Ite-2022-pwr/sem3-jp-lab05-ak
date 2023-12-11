@@ -54,12 +54,12 @@ public class PainterThread extends ThreadBase {
             int startPosition = notPaintedFenceRails.size() / 2 + 1;
             for (int i = startPosition; i < notPaintedFenceRails.size(); i++) {
                 FenceRail fenceRail = notPaintedFenceRails.get(i);
+                checkPaintBucket();
                 if (fenceRail.getStatus() == FenceRailStatus.Painted){
                     return;
                 }
 //                System.out.println(getThreadName() + ": Helping others");
 
-                checkPaintBucket();
                 paint(fenceRail);
 
                 getSomeRest();

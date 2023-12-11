@@ -6,7 +6,7 @@ public class PaintTank {
 
     private static PaintTank instance = null;
 
-    private final int capacity;
+    private int capacity;
     private int paintAmount = 0;
 
     private String painter = ".";
@@ -15,6 +15,14 @@ public class PaintTank {
     private PaintTank(int capacity) {
         this.capacity = capacity;
         this.paintAmount = capacity;
+    }
+
+    public synchronized void setCapacity(int capacity) {
+        this.capacity = capacity;
+    }
+
+    public synchronized int getCapacity() {
+        return this.capacity;
     }
 
     public static synchronized PaintTank getInstance(int capacity) {

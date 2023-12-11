@@ -57,7 +57,7 @@ public class FenceRailGroup {
     }
 
     @Override
-    public synchronized String toString() {
+    public String toString() {
         return this.fenceRails.stream().map(FenceRail::toString).collect(Collectors.joining(" "));
     }
 }

@@ -2,6 +2,7 @@ package ite.jp.ak.lab05.shared;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Fence {
 
@@ -58,7 +59,7 @@ public class Fence {
     }
 
     @Override
-    public synchronized String toString() {
-        return this.fenceRailGroups.stream().map(FenceRailGroup::toString).collect(java.util.stream.Collectors.joining(" | "));
+    public String toString() {
+        return this.fenceRailGroups.stream().map(FenceRailGroup::toString).collect(Collectors.joining(" | "));
     }
 }

@@ -5,10 +5,14 @@
   <groupId>ite.jp.ak.lab05</groupId>
   <artifactId>lab05</artifactId>
   <version>1.0-SNAPSHOT</version>
-  <packaging>jar</packaging>
+  <packaging>pom</packaging>
 
   <name>lab05</name>
   <url>http://maven.apache.org</url>
+  <modules>
+    <module>logic</module>
+    <module>ui</module>
+  </modules>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

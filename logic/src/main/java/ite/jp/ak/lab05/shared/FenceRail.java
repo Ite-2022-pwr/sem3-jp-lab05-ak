@@ -31,7 +31,7 @@ public class FenceRail {
     }
 
     @Override
-    public synchronized String toString() {
+    public String toString() {
         return this.paintedBy;
     }
 }

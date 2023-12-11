@@ -20,7 +20,7 @@ public class App
         Scanner scanner = new Scanner(System.in);
 
         System.out.print("Podaj ilość malarzy (nie więcej niż 25): ");
-        int painterCount = Math.abs(scanner.nextInt()) % 26;
+        int painterCount = Math.abs(scanner.nextInt()) % 25 + 1;
 
         System.out.print("Podaj pojemność wiaderka z farbą pojedynczego malarza: ");
         int paintBucketCapacity = Math.abs(scanner.nextInt());

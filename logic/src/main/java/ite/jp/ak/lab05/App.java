@@ -22,7 +22,7 @@ public class App
         Scanner scanner = new Scanner(System.in);
 
         System.out.print("Podaj ilość malarzy (nie więcej niż 25): ");
-        int painterCount = Math.abs(scanner.nextInt()) % 25 + 1;
+        int painterCount = Math.abs(scanner.nextInt());
 
         System.out.print("Podaj pojemność wiaderka z farbą pojedynczego malarza: ");
         int paintBucketCapacity = Math.abs(scanner.nextInt());
@@ -39,11 +39,11 @@ public class App
         PaintTank paintTank = PaintTank.getInstance(paintTankCapacity);
         Fence fence = Fence.getInstance();
         fence.initializeFence(fenceRailGroupCount, fenceRailCount);
-        PaintSupplierThread paintSupplierThread = new PaintSupplierThread("P", (long)(Math.random() * 1000));
+        PaintSupplierThread paintSupplierThread = new PaintSupplierThread("P", (long)(Math.random() * 1000), null);
         paintSupplierThread.start();
         List<PainterThread> painterThreadList = new ArrayList<>();
         for (int i = 0; i < painterCount; i++) {
-            PainterThread painterThread = new PainterThread("" + (char)(i + (int)'a'), (long)(Math.random() * 1000), paintBucketCapacity);
+            PainterThread painterThread = new PainterThread("" + (char)(i + (int)'a'), (long)(Math.random() * 1000), paintBucketCapacity, null);
             painterThreadList.add(painterThread);
             painterThread.start();
         }

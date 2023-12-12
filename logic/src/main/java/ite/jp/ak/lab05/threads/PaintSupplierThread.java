@@ -6,14 +6,17 @@ public class PaintSupplierThread extends ThreadBase {
 
     private final PaintTank paintTank = PaintTank.getInstance(100);
 
-    public PaintSupplierThread(String name, long delay) {
-        super(name, delay);
+    public PaintSupplierThread(String name, long delay, Triggerable triggerable) {
+        super(name, delay, triggerable);
     }
 
     @Override
     public void run() {
         while (!isFinished()) {
             try {
+                if (getTriggerable() != null) {
+                    getTriggerable().trigger();
+                }
                 refillPaintTank();
                 Thread.sleep(getDelay() + (long)(Math.random() * 1000));
             } catch (InterruptedException e) {

@@ -72,5 +72,10 @@
             </AnchorPane>
         </content>
       </ScrollPane>
+      <Label fx:id="simulationStatusLabel" layoutX="37.0" layoutY="743.0" text="Status symulacji: ">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

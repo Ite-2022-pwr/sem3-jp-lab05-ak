@@ -20,8 +20,8 @@ public class PainterThread extends ThreadBase {
     private final Fence fence = Fence.getInstance();
     private final PaintTank paintTank = PaintTank.getInstance(100);
 
-    public PainterThread(String name, long delay, int paintBucketCapacity) {
-        super(name, delay);
+    public PainterThread(String name, long delay, int paintBucketCapacity, Triggerable triggerable) {
+        super(name, delay, triggerable);
         this.paintBucketCapacity = paintBucketCapacity;
         this.paintBucketLevel = paintBucketCapacity;
     }
@@ -93,6 +93,9 @@ public class PainterThread extends ThreadBase {
     @Override
     public void run() {
         while (!isFinished()) {
+            if (getTriggerable() != null) {
+                getTriggerable().trigger();
+            }
             paintFence();
         }
     }

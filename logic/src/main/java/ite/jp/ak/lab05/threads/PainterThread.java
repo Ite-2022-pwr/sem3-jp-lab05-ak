@@ -38,7 +38,7 @@ public class PainterThread extends ThreadBase {
         var rail = railGroup.getNextFenceRail(this.getThreadName());
         while (rail != null) {
             checkPaintBucket();
-            rail.paint(this.getThreadName());
+            paint(rail);
             getSomeRest();
 
             rail = railGroup.getNextFenceRail(getThreadName());

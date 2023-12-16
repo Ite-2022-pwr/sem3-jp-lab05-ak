@@ -35,7 +35,7 @@ public class PaintTank {
     public synchronized void refill(String paintSupplier) {
         this.paintSupplier = paintSupplier;
         try {
-            Thread.sleep((long)(Math.random() * 1000));
+            Thread.sleep((long)(Math.random() * 100));
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -55,7 +55,7 @@ public class PaintTank {
         }
         this.paintAmount -= amount;
         try {
-            Thread.sleep((long)(Math.random() * 1000));
+            Thread.sleep((long)(Math.random() * 100));
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

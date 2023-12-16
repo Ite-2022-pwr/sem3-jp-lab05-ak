@@ -18,7 +18,7 @@ public class PaintSupplierThread extends ThreadBase {
                     getTriggerable().trigger();
                 }
                 refillPaintTank();
-                Thread.sleep(getDelay() + (long)(Math.random() * 1000));
+                Thread.sleep(getDelay() + (long)(Math.random() * 100));
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

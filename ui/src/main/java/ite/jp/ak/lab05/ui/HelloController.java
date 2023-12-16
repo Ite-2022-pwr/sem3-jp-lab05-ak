@@ -105,15 +105,15 @@ public class HelloController implements Triggerable {
             return;
         }
         String paintTankStr = paintTank.toString();
-//        String fenceStr = fence.toString();
+        String fenceStr = fence.toString();
         List<String> railGroups = fence.getFenceRailGroups().stream().map(FenceRailGroup::toString).toList();
         paintTankLevel.setText("Stan zbiornika z farbą: " + paintTankStr);
-//        System.out.println(paintTankStr);
-//        System.out.println(fenceStr);
+        System.out.println(paintTankStr);
+        System.out.println(fenceStr);
         paintersTableView.getItems().clear();
         paintersTableView.getItems().addAll(painterThreadList);
         fenceListView.getItems().clear();
-//        fenceListView.getItems().addAll(railGroups);
+
         for (var railGroup : railGroups) {
             var tempLabel = new Label(railGroup);
             tempLabel.setFont(Font.font(24));

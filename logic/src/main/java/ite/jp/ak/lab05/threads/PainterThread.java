@@ -47,7 +47,7 @@ public class PainterThread extends ThreadBase {
 
     public void getSomeRest() {
         try {
-            Thread.sleep(getDelay() + (long)(Math.random() * 1000));
+            Thread.sleep(getDelay() + (long)(Math.random() * 100));
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

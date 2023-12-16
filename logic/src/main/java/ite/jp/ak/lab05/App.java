@@ -72,7 +72,7 @@ public class App
 //                System.out.println(fence);
 
                 model.clear();
-                model.addElement("Paint tank: " + paintTankStr);
+                model.addElement(paintTankStr);
                 model.addElement(paintersNames);
                 model.addElement(paintersPaintBucketLevels);
                 model.addElement(fenceStr);

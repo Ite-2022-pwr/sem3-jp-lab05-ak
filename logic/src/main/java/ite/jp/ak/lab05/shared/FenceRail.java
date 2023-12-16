@@ -2,27 +2,22 @@ package ite.jp.ak.lab05.shared;
 
 import ite.jp.ak.lab05.enums.FenceRailStatus;
 import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public class FenceRail {
     private FenceRailStatus status;
     private String paintedBy;
 
-    @Getter private final int x;
-    @Getter private final int y;
+    private final int groupID;
+    private final int indexInGroup;
 
-    public FenceRail(int x, int y) {
+    public FenceRail(int groupID, int indexInGroup) {
         this.status = FenceRailStatus.WaitingForPaint;
         this.paintedBy = ".";
-        this.x = x;
-        this.y = y;
-    }
-
-    public synchronized FenceRailStatus getStatus() {
-        return this.status;
-    }
-
-    public synchronized String getPaintedBy() {
-        return this.paintedBy;
+        this.groupID = groupID;
+        this.indexInGroup = indexInGroup;
     }
 
     public synchronized void paint(String painter) {

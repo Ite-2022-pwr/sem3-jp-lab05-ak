@@ -26,44 +26,22 @@ public class PainterThread extends ThreadBase {
         this.paintBucketLevel = paintBucketCapacity;
     }
 
+
     public void paintFence() {
-        List<FenceRailGroup> freeFenceRailGroups = fence.getFenceRailGroups().stream().filter(fenceRailGroup -> !fenceRailGroup.isBusy()).collect(java.util.stream.Collectors.toList());
-        if (!freeFenceRailGroups.isEmpty()) {
-            FenceRailGroup fenceRailGroup = freeFenceRailGroups.get(0);
-            if (fenceRailGroup.isBusy()) return;
-            fenceRailGroup.setIsBusy(true);
-            for (FenceRail fenceRail : fenceRailGroup.getFenceRails()){
+        var railGroup = fence.getNextFenceRailGroup();
 
-                if (fenceRail.getStatus() == FenceRailStatus.Painted){
-                    return;
-                }
+        if (railGroup == null) {
+            this.setFinished(true);
+            return;
+        }
 
-                checkPaintBucket();
-                paint(fenceRail);
+        var rail = railGroup.getNextFenceRail(this.getThreadName());
+        while (rail != null) {
+            checkPaintBucket();
+            rail.paint(this.getThreadName());
+            getSomeRest();
 
-                getSomeRest();
-            }
-        } else {
-            List<FenceRail> notPaintedFenceRails = fence.getLongestNotPaintedFenceRailsFragment();
-            if (notPaintedFenceRails == null) {
-//                System.out.println(getThreadName() + ": No more rails to paint!");
-                this.setFinished(true);
-                return;
-            }
-
-            int startPosition = notPaintedFenceRails.size() / 2 + 1;
-            for (int i = startPosition; i < notPaintedFenceRails.size(); i++) {
-                FenceRail fenceRail = notPaintedFenceRails.get(i);
-                checkPaintBucket();
-                if (fenceRail.getStatus() == FenceRailStatus.Painted){
-                    return;
-                }
-//                System.out.println(getThreadName() + ": Helping others");
-
-                paint(fenceRail);
-
-                getSomeRest();
-            }
+            rail = railGroup.getNextFenceRail(getThreadName());
         }
     }
 

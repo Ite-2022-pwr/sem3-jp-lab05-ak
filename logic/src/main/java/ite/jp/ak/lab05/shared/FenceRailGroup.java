@@ -1,28 +1,17 @@
 package ite.jp.ak.lab05.shared;
 
 import ite.jp.ak.lab05.enums.FenceRailStatus;
+import lombok.Getter;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class FenceRailGroup {
 
-    private final List<FenceRail> fenceRails = new ArrayList<>();
+    @Getter private final List<FenceRail> fenceRails = Collections.synchronizedList(new ArrayList<>());
 
+    @Getter private final Map<String, Integer> lastRailPaintedBy = Collections.synchronizedMap(new HashMap<>());
     private boolean isBusy = false;
-
-    public synchronized void addFenceRail(FenceRail fenceRail) {
-        this.fenceRails.add(fenceRail);
-    }
-
-    public synchronized List<FenceRail> getFenceRailsByStatus(FenceRailStatus status) {
-        return this.fenceRails.stream().filter(fenceRail -> fenceRail.getStatus() == status).collect(Collectors.toList());
-    }
-
-    public synchronized List<FenceRail> getFenceRails() {
-        return this.fenceRails;
-    }
 
     public synchronized boolean isBusy() {
         return this.isBusy;
@@ -54,6 +43,43 @@ public class FenceRailGroup {
         }
 //        System.out.println("Longest fragment size: " + longestNotPaintedFenceRailsFragment.size());
         return !longestNotPaintedFenceRailsFragment.isEmpty() ? longestNotPaintedFenceRailsFragment : null;
+    }
+
+    public synchronized FenceRail getNextFenceRail(String painterName) {
+        if (lastRailPaintedBy.containsKey(painterName)) {
+            var nextIndex = lastRailPaintedBy.get(painterName) + 1;
+
+            if (nextIndex >= fenceRails.size() || fenceRails.get(nextIndex).getStatus() != FenceRailStatus.WaitingForPaint) {
+                return null;
+            }
+
+            var rail = fenceRails.get(nextIndex);
+            rail.setStatus(FenceRailStatus.InPainting);
+            rail.setPaintedBy(painterName);
+            lastRailPaintedBy.replace(painterName, nextIndex);
+            return rail;
+        }
+
+        FenceRail rail;
+        if (fenceRails.get(0).getStatus() == FenceRailStatus.WaitingForPaint) {
+            rail = fenceRails.get(0);
+        } else {
+            var fragment = getLongestNotPaintedFenceRailsFragment();
+
+            if (fragment == null) {
+                return null;
+            }
+
+            var fragmentIndex = fragment.size() / 2;
+            rail = fenceRails.get(fragment.get(fragmentIndex).getIndexInGroup());
+        }
+
+//        System.out.println(painterName + ": " + rail.getPaintedBy() + " " + rail.getStatus());
+
+        rail.setStatus(FenceRailStatus.InPainting);
+        rail.setPaintedBy(painterName);
+        lastRailPaintedBy.put(painterName, rail.getIndexInGroup());
+        return rail;
     }
 
     @Override
